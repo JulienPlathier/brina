@@ -14,7 +14,7 @@
 		</style>
 		
         <script>
-			let particles = [];
+			let particles = Array();
 			let canvas_context;
 			let canvas_width = 0;
 			let canvas_height = 0;
@@ -101,7 +101,7 @@
 			}
 			
 			function setTime() {
-                let date=new Date(Date.UTC(2020,03,14,11,30,00));
+                		let date=new Date(Date.UTC(2020,03,14,11,30,00));
 				let delta = date.getTime()-Date.now();
 				let remainder = delta/3600000/24
 				let days = Math.floor(remainder);
