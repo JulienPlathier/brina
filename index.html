@@ -15,26 +15,26 @@
 		
         <script>
 			var particles = new Array();
-			let canvas_context;
-			let canvas_width = 0;
-			let canvas_height = 0;
-			let mouse_x = 0;
-			let mouse_y = 0;
-			let first = true;
-			let canvas;
-			let heart_scale_factor = 0;
-			let heart_width = 0;
-			let heart_height = 0;
-			let font_size = 1;
+			var canvas_context;
+			var canvas_width = 0;
+			var canvas_height = 0;
+			var mouse_x = 0;
+			var mouse_y = 0;
+			var first = true;
+			var canvas;
+			var heart_scale_factor = 0;
+			var heart_width = 0;
+			var heart_height = 0;
+			var font_size = 1;
 			
-			let time_0 = Date.now();
-			let frequency = 0.001;
-			let dumping_coefficient = 0.001;
-			let set_opacity = 0;
-			let opacity_0 = -1;
-			let is_opaque = false;
+			var time_0 = Date.now();
+			var frequency = 0.001;
+			var dumping_coefficient = 0.001;
+			var set_opacity = 0;
+			var opacity_0 = -1;
+			var is_opaque = false;
 
-			let Particle = {
+			var Particle = {
 				x: 0,
 				y: 0,
 				x0: 0,
@@ -62,7 +62,7 @@
 				opacity_0 = -1;
 				is_opaque = false;
 				
-				let y_max = 2*Math.atan(1/(Math.sqrt(93/(11-(1996*Math.pow(2,2/3)/Math.pow(2092+93*Math.sqrt(29238),1/3))+4*Math.pow(2*(2092+93*Math.sqrt(29238)),1/3)))));
+				var y_max = 2*Math.atan(1/(Math.sqrt(93/(11-(1996*Math.pow(2,2/3)/Math.pow(2092+93*Math.sqrt(29238),1/3))+4*Math.pow(2*(2092+93*Math.sqrt(29238)),1/3)))));
 				
 				heart_width = setX(Math.PI/2) - setX(-Math.PI/2);
 				heart_height = setY(y_max) - setY(Math.PI);
@@ -70,10 +70,10 @@
 				heart_scale_factor = Math.min(canvas_height/heart_height, canvas_width/heart_width) * 0.9;
 				heart_width *= heart_scale_factor;
 				
-				let particle_id = 0;
+				var particle_id = 0;
 			
-				for (let scale = 0; scale <= heart_scale_factor; scale+=1/4) {
-					for (let t = 0; t < 2*Math.PI; t += 2/(scale*10.21)) {
+				for (var scale = 0; scale <= heart_scale_factor; scale+=1/4) {
+					for (var t = 0; t < 2*Math.PI; t += 2/(scale*10.21)) {
 						
 						if(particles.length < particle_id + 1) {
 							particles[particle_id] = Object.create(Particle);
@@ -101,22 +101,22 @@
 			}
 			
 			function setTime() {
-                		let date=new Date(Date.UTC(2020,03,14,11,30,00));
-				let delta = date.getTime()-Date.now();
-				let remainder = delta/3600000/24
-				let days = Math.floor(remainder);
+                		var date=new Date(Date.UTC(2020,03,14,11,30,00));
+				var delta = date.getTime()-Date.now();
+				var remainder = delta/3600000/24
+				var days = Math.floor(remainder);
 				
 				remainder = (remainder - days)*24;
 				
-				let hours = Math.floor(remainder);
+				var hours = Math.floor(remainder);
 				
 				remainder = (remainder - hours)*60;
 				
-				let minutes = Math.floor(remainder)
+				var minutes = Math.floor(remainder)
 				
 				remainder = (remainder - minutes)*60;
 				
-				let seconds = Math.floor(remainder)
+				var seconds = Math.floor(remainder)
 				
 				return days + " jours, " + hours + " heures, " + minutes + " minutes, " + seconds + " secondes";
             }
@@ -124,8 +124,8 @@
 			function step() {
 				"use strict";
 				
-				let opacity = 0;
-				let time = Date.now() - time_0;
+				var opacity = 0;
+				var time = Date.now() - time_0;
 
 				if(window.HTMLCanvasElement) {
 					canvas_context.clearRect(0, 0, canvas_width, canvas_height)
@@ -135,7 +135,7 @@
 						p.x = p.x0 + p.amplitude * Math.exp(-dumping_coefficient * time) * Math.cos(frequency * time) * Math.cos(p.angle);
 						p.y = p.y0 + p.amplitude * Math.exp(-dumping_coefficient * time) * Math.cos(frequency * time) * Math.sin(p.angle);
 						
-						let mouse_distance = Math.sqrt(Math.pow(canvas_width/2-mouse_x,2)+Math.pow(canvas_height/2-mouse_y,2));
+						var mouse_distance = Math.sqrt(Math.pow(canvas_width/2-mouse_x,2)+Math.pow(canvas_height/2-mouse_y,2));
 						
 						p.x += (p.x0 - canvas_width /2) * Math.cos(time/500) * 0.02 * (1+30/ (mouse_distance+1));
 						p.y += (p.y0 - canvas_height/2) * Math.cos(time/500) * 0.02 * (1+30/ (mouse_distance+1));
@@ -150,7 +150,7 @@
 						canvas_context.fillRect(Math.floor(p.x), Math.floor(p.y), 1, 1);						
 					});
 					
-					let line = [];
+					var line = [];
 					
 					line[0] = "Plus que";
 					line[1] = setTime();
@@ -201,7 +201,7 @@
 					canvas_context.fillStyle = "rgba(255,255,255,"+opacity+")";
 					canvas_context.strokeStyle = "rgba(0,0,0,"+opacity+")";
 					
-					for(let i = 0; i < line.length; i++) {
+					for(var i = 0; i < line.length; i++) {
 						canvas_context.lineWidth = 15;
 						canvas_context.strokeText(line[i],(canvas_width-canvas_context.measureText(line[i]).width)/2,canvas_height/2+(i-2.5)*font_size);
 						
@@ -225,7 +225,7 @@
 
 					// mouse interaction & position from top-left cornet of the canvas
 					document.addEventListener('mousemove', function (e) {
-						let bounds = canvas.getBoundingClientRect();
+						var bounds = canvas.getBoundingClientRect();
 						mouse_x = e.clientX - bounds.left;
 						mouse_y = e.clientY - bounds.top;
 					});
